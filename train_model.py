@@ -10,15 +10,15 @@ if __name__ == '__main__':
     df = pd.read_parquet('version1.parquet')
 
     # Preprocess the data
-    prompts = df['prompt'].apply(preprocess_text).tolist()
-    responses = df['response'].apply(preprocess_text).tolist()
+    prompts = df['prompt'].apply(preprocess_text).tolist() #turn the prompts into a list after processing them
+    responses = df['response'].apply(preprocess_text).tolist() #turn the prompts into a list after processing them
 
-    # Split the data into training and validation sets
+    # Split the data into training and validation sets (80% training, 20% validation). 42 random_state means the split will be the same with different tests.
     X_train, X_valid, y_train, y_valid = train_test_split(prompts, responses, test_size=0.2, random_state=42)
 
     # Tokenize the data
     X_train, vocab_size, max_sequence_length, word_index = tokenize_data(X_train)
-    X_valid, _, _, _ = tokenize_data(X_valid)
+    X_valid, _, _, _ = tokenize_data(X_valid) #the 3 values which are not X_valid are given by the tokenize_data function. 
 
     # Prepare the data
     X_train_padded, y_train_padded = prepare_data(X_train, vocab_size, max_sequence_length)

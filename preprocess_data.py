@@ -13,23 +13,6 @@ nltk.download('stopwords')
 
 import string
 
-# def preprocess_text(text):
-#     words = text.split()  # Split the text into words
-#     # Remove punctuation from each word
-#     words = [word.translate(str.maketrans('', '', string.punctuation)) for word in words]
-#     #words is a list like ['Who', 'are', 'you'] and we need [['who'],['are'],['you']]
-#     words = [word.lower() for word in words]
-#     return words
-
-# def preprocess_text(text):
-#     words = text.split()  # Split the text into words
-#     # Remove punctuation from each word
-#     words = [word.translate(str.maketrans('', '', string.punctuation)) for word in words]
-#     # Convert each word to lowercase and wrap in a list
-#     words = [[word.lower()] for word in words]
-#     # print(words)
-#     return words #works
-
 def preprocess_text(text):
     words = text.split()  # Split the text into words
     # Remove punctuation from each word
@@ -61,6 +44,6 @@ def prepare_data(sequences, vocab_size, max_sequence_length):
         for i in range(1, len(sequence)):
             X.append(sequence[:i])
             y.append(sequence[i])
-    X_padded = pad_sequences(X, maxlen=max_sequence_length, padding='pre')
+    X_padded = pad_sequences(X, maxlen=max_sequence_length, padding='pre') # Pad the sequences to the max length and add the padding before the sequence (ie, 'pre')
     y_onehot = to_categorical(y, num_classes=vocab_size)
     return X_padded, y_onehot
