@@ -101,13 +101,12 @@ while True:
 
     # Pad the tokenized input
     padded_input = pad_sequences([tokenized_input], maxlen=max_sequence_length, padding='pre')
-    # NOTE: the padding needs to be alterred to be a 2D array if we wish to add multiple layers to the model
 
     # Make prediction
     prediction = model.predict(padded_input)
 
     # Get the top 10 indexes of the highest probabilities
-    predicted_indexes = np.argsort(prediction[0])[::-1][:20]
+    predicted_indexes = np.argsort(prediction[0])[::-1][:5]
 
     # Create a list to store the words of the response
     response_words = []
